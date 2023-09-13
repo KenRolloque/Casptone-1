@@ -67,7 +67,8 @@ const galleryStyle = StyleSheet.create({
         backgroundColor:"#EFEFEF",
         marginTop:"2%",
         borderStartWidth:4,
-        borderStartColor:"#25C196"
+        borderStartColor:"#25C196",
+        borderRadius:5
         // borderBottomWidth:1,
         // borderBottomColor:"#E6E6E6"
 

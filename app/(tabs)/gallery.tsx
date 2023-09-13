@@ -146,8 +146,7 @@ export default function TabTwoScreen() {
 
         <View style = {galleryStyle.qrAction}>
             <TouchableOpacity>
-                <Ionicons name='download-outline' size={18} color="#737373
-                " />
+                <Ionicons name='download-outline' size={18} color="#737373" />
             </TouchableOpacity>  
             <TouchableOpacity>
                 <Ionicons name='trash-outline' size={18} color="#737373" />
