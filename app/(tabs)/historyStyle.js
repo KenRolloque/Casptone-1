@@ -3,10 +3,10 @@ import { StyleSheet } from "react-native";
 
 const historyStyle = StyleSheet.create({
 
-    mainContainer:{
-        flex:1,
-        alignItems:"center"
+    youScan:{
+        // fontFamily:"myFont"
     },
+  
     bttnCont:{
         width:"90%",
         flexDirection:"row",
@@ -28,7 +28,8 @@ const historyStyle = StyleSheet.create({
         // borderWidth:1
 
     },allBttn_label:{
-        color:"white"
+        color:"white",
+        fontFamily:"myFont"
     },
     safeBttn:{
         justifyContent:"center",
@@ -86,12 +87,20 @@ const historyStyle = StyleSheet.create({
         // borderWidth:1,
         alignItems:"flex-end"
     },
+
+    historyLink:{
+        // fontFamily:"myFont"
+    },
+    mainContainer:{
+        flex:1,
+        alignItems:"center"
+    },
     historyTime:{
 
-
+        // fontFamily:"myFont"
     },
     historyDate:{
-
+        // fontFamily:"myFont"
 
     },
     listHistory2:{
@@ -118,6 +127,8 @@ const historyStyle = StyleSheet.create({
     activeButtonText:{
 
         color: 'white',
+        // fontFamily:"myFont"
+        
     }
 
 

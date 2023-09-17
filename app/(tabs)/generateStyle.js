@@ -36,6 +36,7 @@ const generateStyle = StyleSheet.create({
     
     descLabel:{
         alignItems:"center",
+        // fontFamily:"myFont"
         // backgroundColor:"#004594",
        
     },
@@ -47,6 +48,8 @@ const generateStyle = StyleSheet.create({
         marginBottom:10,
         borderRadius:5,
         borderColor:"#A6A6A6",
+        // fontFamily:"myFont",
+        color:"#706f6f"
         
       
     },
@@ -58,6 +61,9 @@ const generateStyle = StyleSheet.create({
         marginBottom:10,
         borderRadius:5,
         borderColor:"#A6A6A6",
+        // fontFamily:"myFont",
+        color:"#706f6f",
+        height:100
         
  
 
@@ -77,7 +83,13 @@ const generateStyle = StyleSheet.create({
         borderRadius:5,
         
 
-    },genButton:{
+    },
+    
+    clearText:{
+        // fontFamily:"myFont"
+    },
+    
+    genButton:{
         backgroundColor:"#25C196",
         paddingVertical:10,
         paddingHorizontal:20,
@@ -85,7 +97,8 @@ const generateStyle = StyleSheet.create({
     },
 
     clearButtonText:{
-        color:"white"
+        color:"white",
+        // fontFamily:"myFont"
     },disableDL:{
         backgroundColor:"#79F4D2"
     },
@@ -94,23 +107,35 @@ const generateStyle = StyleSheet.create({
 // Section Two
     sectionTwo:{
 
-        // backgroundColor:"#004594",
+        backgroundColor:"#f7f7f7",
         flex:1,
         width:"100%",
         alignItems:"center",
-       
-       
-        
+
 
     },ready:{
 
         width:"90%",
-        // backgroundColor:"#1565C0",
+        backgroundColor:"white",
         textAlign:"center",
-        paddingVertical:15,
+        // paddingVertical:15,
         // color:"white",
         borderRadius:5,
-        marginTop:"5%"
+        // marginTop:"5%",
+        // fontFamily:"Poppins"
+
+
+        borderRadius: 10,
+        padding: 15,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
 
     },qrContainer:{
         width:"90%",
@@ -120,16 +145,21 @@ const generateStyle = StyleSheet.create({
 
     },qr:{
 
-        marginVertical:"10%"
+        marginVertical:"5%",
+        // borderWidth:1,
+        padding:20,
+        backgroundColor:"white",
+        // borderWidth:1
         
     },actionBttn:{
         width:"100%",
+        marginTop:20,
         // backgroundColor:"#1565C0",
         flexDirection:"row",
         justifyContent:"center",
         borderRadius:5,
         paddingVertical:10,
-        backgroundColor:"#004594",
+        // backgroundColor:"#004594",
     },
     addBttn:{
         backgroundColor:"red",
@@ -154,6 +184,7 @@ const generateStyle = StyleSheet.create({
 
     },dlBttn_label:{
         // color:"white"
+        fontFamily:"Poppins"
     },dlIcon:{
         marginTop:2,
         marginRight:12,
@@ -164,11 +195,116 @@ const generateStyle = StyleSheet.create({
     },
     
     addBttn_label:{
-        color:"white"
+        color:"white",
+        // fontFamily:"Poppins"
 
     },dlBttn_label:{
         color:"white"
-    }
+        
+    },
+
+    centeredView: {
+        flex: 1,
+        // justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+     
+      },
+      modalView: {
+        width:"90%",
+        // flex:1,
+        marginTop: 20,
+        backgroundColor: 'white',
+        paddingBottom:20,
+        // borderRadius: 20,
+        // padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+      },
+
+      backContainer:{
+        width:"90%",
+
+      },
+
+      button: {
+        // borderRadius: 20,
+        // padding: 10,
+        // elevation: 2,
+        width:"20%",
+        alignItems:"center",
+        borderRadius:5,
+        marginBottom:10
+        
+      },
+      buttonOpen: {
+        backgroundColor: '#F194FF',
+      },
+      buttonClose: {
+        backgroundColor: '#2196F3',
+      },
+      textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        width:"100%",
+        textAlign: 'center',
+        paddingVertical:10,
+       
+      },
+      modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
+      },
+
+
+
+      linkContainer:{
+        width:"90%",
+        alignItems:"center",
+        marginBottom:10,
+        flexDirection:"row",
+        // borderWidth:1,
+        backgroundColor:"#f0f8ff",
+        padding:10,
+        borderRadius:10
+    },
+
+    linkIconContainer:{
+        paddingHorizontal:10,
+        backgroundColor:"none"
+
+    },
+
+    linkIcon:{
+
+    },
+    linkLabelContainer:{
+        backgroundColor:"none"
+
+    },
+    linkLabel:{
+        fontSize:16,
+        fontWeight:"bold",
+
+        // fontFamily:"Poppins"
+
+
+    },
+    link:{
+        color:"#00BF63",
+       
+        // fontFamily:"Poppins"
+    },
+
+
+
 
 
 

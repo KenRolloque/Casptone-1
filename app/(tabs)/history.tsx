@@ -6,7 +6,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { FlatList } from 'react-native-gesture-handler';
 import { generateStyle } from './generateStyle';
 import { useState } from 'react';
+import { useFonts } from 'expo-font';
+
 export default function TabTwoScreen() {
+
+
 
   const [isAll, setisAll] = useState("true");
   const [isSafe, setisSafe] = useState("false");
@@ -121,8 +125,8 @@ export default function TabTwoScreen() {
         <View style = {historyStyle.leftHistory}>
           <Ionicons  name='person' size={18} color="#2FA0D8"/>
           <View style = {historyStyle.details}>
-            <Text> You scanned </Text>
-            <Text> {item.link}</Text>
+            <Text style = {historyStyle.youScan}> You scanned </Text>
+            <Text style = {historyStyle.historyLink}> {item.link}</Text>
           </View>
         </View>
 
@@ -143,11 +147,11 @@ export default function TabTwoScreen() {
     
     <View style = {historyStyle.mainContainer}>
 
-        <View style = {historyStyle.bttnCont}>
+        {/* <View style = {historyStyle.bttnCont}>
 
            {renderButton('All','#2FA0D8')}
            {renderButton('Safe','#25C196')}
-           {renderButton('Suspicious','#FF5757')}
+           {renderButton('Suspicious','#FF5757')} */}
 
 {/* 
             <TouchableOpacity style = {historyStyle.allBttn} onPress = {() => filterData('All')}> 
@@ -161,7 +165,7 @@ export default function TabTwoScreen() {
             <TouchableOpacity style = {historyStyle.susBttn} onPress = {() => filterData('Suspicious')}> 
                 <Text style = {historyStyle.susBttn_label}> Suspicious </Text>
             </TouchableOpacity> */}
-        </View>
+        {/* </View> */}
 
 
 

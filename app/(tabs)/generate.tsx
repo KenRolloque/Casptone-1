@@ -1,30 +1,61 @@
-import { StyleSheet,TextInput, TouchableOpacity,ImageBackground } from 'react-native';
+import { StyleSheet,TextInput, TouchableOpacity,ImageBackground, Modal, Alert, Pressable,  ToastAndroid, PixelRatio } from 'react-native';
 import { generateStyle} from "./generateStyle";
-import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import QRCode from 'react-native-qrcode-svg';
+import { useFonts } from 'expo-font';
+import * as MediaLibrary from "expo-media-library";
+import ViewShot from 'react-native-view-shot';
+import { captureRef } from 'react-native-view-shot';
+
 
 export default function TabTwoScreen() {
 
+    
+    // Export Font
+
+
+    
+
+
+    //
+
+    // Description and URL
     const [desc, setDesc] = useState("");
     const [inputText, setinputText] = useState("");
 
     // Boolean
     const [shouldShow, setShouldShow] = useState(false);
     const [isDisabled, setisDisabled] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
 
+
+    const viewShotRef = useRef(null);
+    const [qrCodeImagePath, setQRCodeImagePath] = useState<string | null>(null);
+
+
+
+    // Input Text
     const handleChangeText = (text:any) => {
 
         setinputText (text);
         setShouldShow(false);
     }
 
+    
+    // Input Description
+    const handleChangeDesc = (description:any) => {
+
+        setDesc (description);
+        setShouldShow(false);
+    }
+
+    // Generate QR Code
     const handleGenerateQRCode = () => {
 
-        if (inputText ===""){
+        if (inputText ==="" || desc ===""){
             
         }else{
             setShouldShow(true); // Show the QR code when the "Generate" button is pressed
@@ -32,11 +63,73 @@ export default function TabTwoScreen() {
       
     };
 
+    // Clear Inputs
+
+
+    const clearInput = async () =>{
+
+        const empty = "";
+        setShouldShow(false);
+        setDesc(empty);
+        setinputText(empty);
+    }
+
+
+    // Show Download Toast
+    const Download = async () => {
+        //function to make Toast With Duration And Gravity
+
+
+
+        const targetPixelCount = 1080;
+        const pixelRatio = PixelRatio.get();
+        const pixels = targetPixelCount / pixelRatio;
+
+
+        if (viewShotRef.current) {
+            const uri =  await captureRef(viewShotRef.current,{
+      
+              format:'png',
+              quality:1,
+              height: pixels,
+              width: pixels,
+              
+            });
+      
+            const asset = await MediaLibrary.createAssetAsync(uri);
+      
+            console.log('QR Code PNG image saved:', asset.uri);
+      
+      
+          }
+
+        // ToastAndroid.showWithGravity(
+        //   'Saved to Local Gallery',
+        //   ToastAndroid.SHORT, //can be SHORT, LONG
+        //   ToastAndroid.CENTER //can be TOP, BOTTON, CENTER
+        // );
+
+
+
+      };
+
+      const add = () => {
+        //function to make Toast With Duration And Gravity
+        // ToastAndroid.showWithGravity(
+        //   'Added to App Gallery',
+        //   ToastAndroid.SHORT, //can be SHORT, LONG
+        //   ToastAndroid.CENTER //can be TOP, BOTTON, CENTER
+        // );
+      };
+
+
   return (
 
     // Main Container
     
+   
     <View style = {generateStyle.mainContainer}>
+
 
     {/* Section One */}
 
@@ -50,6 +143,7 @@ export default function TabTwoScreen() {
             <TextInput
                 multiline
                 placeholder='Enter Description'
+                onChangeText={handleChangeDesc}
                 value={desc}
                 style={generateStyle.descInput}
 
@@ -69,16 +163,17 @@ export default function TabTwoScreen() {
 
             <View style = {generateStyle.buttonsCont}>
 
-                    <TouchableOpacity 
+                    <Pressable 
                     style = {[generateStyle.clearButton]}
-                    disabled = {inputText.trim() === ''}
+                    disabled = {inputText.trim() === '' && desc.trim() === ''}
+                    onPress={clearInput}
 
                     >
-                        <Text >Clear</Text>
-                    </TouchableOpacity>
+                        <Text style = {generateStyle.clearText}>Clear</Text>
+                    </Pressable>
                 
                     <TouchableOpacity 
-                        style = {[generateStyle.genButton, inputText.trim() === "" && generateStyle.disableDL]} onPress={handleGenerateQRCode}
+                        style = {[generateStyle.genButton, inputText.trim() === "" && generateStyle.disableDL]} onPress={() => setModalVisible(true)}
                          disabled = {inputText.trim() === ''}>
                         <Text style = {generateStyle.clearButtonText}>Generate</Text>
                     </TouchableOpacity>
@@ -91,42 +186,152 @@ export default function TabTwoScreen() {
 
         {/* Section Two */}
 
-        {shouldShow ? (
+        {/* {shouldShow ? (
 
+            // <View  style = {generateStyle.sectionTwo}>
+            <ImageBackground style = {generateStyle.sectionTwo} source={require('../../assets/images/stacked-peaks-haikei.jpg')}>
+                <Text style ={generateStyle.ready}> Your QR Code is Ready</Text>
 
-    <ImageBackground style = {generateStyle.sectionTwo} source={require('../../assets/images/stacked-peaks-haikei.jpg')}>
+                 <View style ={generateStyle.qrContainer}>
+
+                    <View style={generateStyle.qr}>
+                        <QRCode value ={inputText} size={200}/>
+                    </View>
+
+                    <View style ={generateStyle.actionBttn}>
         
-               
-           <Text style ={generateStyle.ready}> Your QR Code is Ready</Text>
+                        <TouchableOpacity style ={generateStyle.dlBttn} >
+                            <Ionicons  style ={generateStyle.dlIcon} name='arrow-down-circle-outline' size={18} color="white" />
+                            <Text style ={generateStyle.dlBttn_label}> Download</Text>
+                        </TouchableOpacity>
 
-           <View style ={generateStyle.qrContainer}>
+                        <TouchableOpacity style ={generateStyle.addBttn}>
+                            <Ionicons  style ={generateStyle.addIcon} name='add-circle-outline' size={18} color="white"/>
+                            <Text style ={generateStyle.addBttn_label}> Add</Text>
+                        </TouchableOpacity>
 
-              <View style={generateStyle.qr}>
-                    <QRCode value ={inputText} size={200}/>
-               </View>
 
-                <View style ={generateStyle.actionBttn}>
-                   
-                     <TouchableOpacity style ={generateStyle.dlBttn}>
-                         <Ionicons  style ={generateStyle.dlIcon} name='arrow-down-circle-outline' size={18} color="white" />
-                         <Text style ={generateStyle.dlBttn_label}> Download</Text>
-                     </TouchableOpacity>
 
-                     <TouchableOpacity style ={generateStyle.addBttn}>
-                         <Ionicons  style ={generateStyle.addIcon} name='add-circle-outline' size={18} color="white"/>
-                         <Text style ={generateStyle.addBttn_label}> Add</Text>
-                     </TouchableOpacity>
+                    </View>
+     
+                </View>
 
-                 </View>
-                
-             </View> 
+            </ImageBackground>    
 
-        {/* </View> */}
+        ):null}  */}
 
-        </ImageBackground>    
 
-    ):null} 
+    <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+        //   Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}
+        
+        >
+        <View style={generateStyle.centeredView}>
+
+
+        <View style={generateStyle.backContainer}>
+            <Pressable
+                style={[generateStyle.button, generateStyle.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+
+                <Text style={generateStyle.textStyle}>Back</Text>
+
+            </Pressable>
+        </View>
+{/* 
+        <Text style ={generateStyle.ready}> Your QR Code is Ready</Text> */}
+
+        
+        <View style={generateStyle.modalView}>
+ 
+
+        <View style ={generateStyle.qrContainer}>
+
+            <ViewShot 
+            ref={viewShotRef} 
+          
+            options={{ format: 'png', quality: 1 }}
+            >
+
+                <View
+                  style={generateStyle.qr}
+                >
+
+                <QRCode value ={inputText} size={200}/>
+
+
+                </View>
+            </ViewShot>
+
+
+
+            <View style={generateStyle.linkContainer}>
+
+                    <View style={generateStyle.linkIconContainer}>
+                        <Ionicons  style ={generateStyle.linkIcon} name='document-text-outline' size={25}  />
+                    </View>
+
+                    <View style={generateStyle.linkLabelContainer}>
+
+                        <Text style={generateStyle.linkLabel}> Description </Text>
+                        <Text  style={generateStyle.link} > {desc}</Text> 
+                    </View>
+
+            </View>
+
+            <View style={generateStyle.linkContainer}>
+
+                <View style={generateStyle.linkIconContainer}>
+                    <Ionicons  style ={generateStyle.linkIcon} name='mail-outline' size={25}  />
+                </View>
+
+                <View style={generateStyle.linkLabelContainer}>
+
+                    <Text style={generateStyle.linkLabel}> Content </Text>
+                    <Text  style={generateStyle.link} > {inputText} </Text> 
+                </View>
+
+            </View>
+
+            <View style ={generateStyle.actionBttn}>
+
+                <TouchableOpacity style ={generateStyle.dlBttn}  onPress={Download}>
+                    <Ionicons  style ={generateStyle.dlIcon} name='arrow-down-circle-outline' size={18} color="white" />
+                    <Text style ={generateStyle.dlBttn_label}> Download</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style ={generateStyle.addBttn} onPress={add}>
+                    <Ionicons  style ={generateStyle.addIcon} name='add-circle-outline' size={18} color="white"/>
+                    <Text style ={generateStyle.addBttn_label}> Add</Text>
+                </TouchableOpacity>
+
+            </View>
+
+
+
+        </View>
+
+          </View>
+
+
+        </View>
+      </Modal>
+
+
     </View>
+
+   
+    
+
   );
 }
+
+const styles = StyleSheet.create({
+    
+  });
 

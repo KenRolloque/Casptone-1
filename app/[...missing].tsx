@@ -1,9 +1,15 @@
-import { Link, Stack } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { Link, Stack, router } from 'expo-router';
+import { Button, StyleSheet } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
 
 export default function NotFoundScreen() {
+
+  const login = () =>{
+
+    router.replace('/(tabs)/scan')
+  }
+
   return (
     <>
       <Stack.Screen options={{ title: 'Oops!' }} />
@@ -13,6 +19,8 @@ export default function NotFoundScreen() {
         <Link href="/" style={styles.link}>
           <Text style={styles.linkText}>Go to home screen!</Text>
         </Link>
+
+        <Button title='go' onPress={login}/>
       </View>
     </>
   );
